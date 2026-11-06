@@ -1,8 +1,9 @@
 #include <Arduino.h>
+#define sensLuz A0
 #define ledPin 13
 
-int sensorValue = 0;
-int angulo = 0;
+int valorSensLuz = 0;
+int asEscuras = 700;
 
 void setup() {
   Serial.begin(9600);
@@ -11,14 +12,12 @@ void setup() {
 }
 
 void loop() {
-  sensorValue = analogRead(A0);
-  angulo = map(sensorValue, 0, 1023, 0, 360);
-  if (angulo >= 180) {
+  valorSensLuz = analogRead(sensLuz);
+  Serial.println(valorSensLuz);
+  if (valorSensLuz < asEscuras) {
     digitalWrite(ledPin, HIGH);
   } else {
     digitalWrite(ledPin, LOW);
   }
-
-  Serial.println(angulo);
   delay(1);
 }
